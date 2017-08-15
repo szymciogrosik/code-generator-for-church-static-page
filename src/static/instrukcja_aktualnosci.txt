@@ -1,0 +1,14 @@
+Aby dodać nową aktualność, należy wpisać w zakładce "Aktualności" wszystkie niezbędne informacje (po kliknięciu w przycisk "Generuj kod JavaScript/HTML" kod zostanie automatycznie skopiowany do systemowego schowka wtsraczy go potem wkleić (ctrl+v lub prawy klawisz myszy -> wklej)).
+
+Następnie należy:
+
+1. Wygenerowany kod JavaScript należy umieścić w wyznaczonym miejscu w pliku pod ścieżką: "/rawa/static/js/Aktualnosci/aktualnosci.js".
+
+2. Wygenerowany kod HTML należy umieścić w wyznaczonym miejscu w pliku pod ścieżką: "/rawa/index.html".
+
+3. Wygenerowane zdjęcie, które pojawi się w folderze w którym został uruchomiony program, należy umieścić w folderze: "/rawa/static/images/Aktualnosci".
+
+UWAGA - nie wolno zmieniać nazwy zdjęcia po wygenerowaniu kodu !!!
+
+
+Data ostatniej modyfikacji: 15.08.2017

@@ -21,6 +21,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Box;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
@@ -32,8 +33,10 @@ import java.awt.*;
 import java.awt.datatransfer.StringSelection;
 import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 
 public class Main extends Application {
 
@@ -89,6 +92,31 @@ public class Main extends Application {
     private TextField symbolLink7 = new TextField("");
     private TextField symbolLink8 = new TextField("");
 
+    private File zdjecieSlider1;
+    private File zdjecieSlider2;
+    private File zdjecieSlider3;
+    private File zdjecieSlider4;
+    private File zdjecieSlider5;
+    private Button wczytajZdjecie1 = new Button("Wczytaj zdjecie nr 1");
+    private Button wczytajZdjecie2 = new Button("Wczytaj zdjecie nr 2");
+    private Button wczytajZdjecie3 = new Button("Wczytaj zdjecie nr 3");
+    private Button wczytajZdjecie4 = new Button("Wczytaj zdjecie nr 4");
+    private Button wczytajZdjecie5 = new Button("Wczytaj zdjecie nr 5");
+    private Button usunZdjecie1 = new Button("Usun");
+    private Button usunZdjecie2 = new Button("Usun");
+    private Button usunZdjecie3 = new Button("Usun");
+    private Button usunZdjecie4 = new Button("Usun");
+    private Button usunZdjecie5 = new Button("Usun");
+    private Label wybraneZdjecie1 = new Label("brak");
+    private Label wybraneZdjecie2 = new Label("brak");
+    private Label wybraneZdjecie3 = new Label("brak");
+    private Label wybraneZdjecie4 = new Label("brak");
+    private Label wybraneZdjecie5 = new Label("brak");
+    private Button skopiujIZmienRozmiar = new Button("Skopiuj zdjęcia i zmień ich rozmiar!");
+
+    private TextArea instrukcjaZdjecia = new TextArea();
+    private TextArea instrukcjaAktualnosci = new TextArea();
+
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -105,10 +133,19 @@ public class Main extends Application {
 
         Tab aktualnosci = createAktualnosci();
 
+        Tab aktualnosciInstrukcja = createAktualnosciInstrukcja();
+
         Tab zdjecia = createZdjecia();
 
+        Tab zdjeciaInstukcja = createZdjeciaInstrukcja();
+
         tabPane.getTabs().add(aktualnosci);
+        tabPane.getTabs().add(aktualnosciInstrukcja);
         tabPane.getTabs().add(zdjecia);
+        tabPane.getTabs().add(zdjeciaInstukcja);
+
+        instrukcjaAktualnosci.setText(readTextFromFile("\\src\\static\\instrukcja_aktualnosci.txt"));
+        instrukcjaZdjecia.setText(readTextFromFile("\\src\\static\\instrukcja_zdjecia.txt"));
 
         wybierzZdjecie.setOnAction(
                 event -> {
@@ -193,6 +230,98 @@ public class Main extends Application {
                     symbolLink8.setText("");
                 }
         );
+
+        wczytajZdjecie1.setOnAction(
+                event -> {
+                    zdjecieSlider1 = fileChooser.showOpenDialog(primaryStage);
+                    if (zdjecieSlider1 != null) {
+                        wybraneZdjecie1.setText(zdjecieSlider1.getName());
+                    }
+                }
+        );
+
+        wczytajZdjecie2.setOnAction(
+                event -> {
+                    zdjecieSlider2 = fileChooser.showOpenDialog(primaryStage);
+                    if (zdjecieSlider2 != null) {
+                        wybraneZdjecie2.setText(zdjecieSlider2.getName());
+                    }
+                }
+        );
+
+        wczytajZdjecie3.setOnAction(
+                event -> {
+                    zdjecieSlider3 = fileChooser.showOpenDialog(primaryStage);
+                    if (zdjecieSlider3 != null) {
+                        wybraneZdjecie3.setText(zdjecieSlider3.getName());
+                    }
+                }
+        );
+
+        wczytajZdjecie4.setOnAction(
+                event -> {
+                    zdjecieSlider4 = fileChooser.showOpenDialog(primaryStage);
+                    if (zdjecieSlider4 != null) {
+                        wybraneZdjecie4.setText(zdjecieSlider4.getName());
+                    }
+                }
+        );
+
+        wczytajZdjecie5.setOnAction(
+                event -> {
+                    zdjecieSlider5 = fileChooser.showOpenDialog(primaryStage);
+                    if (zdjecieSlider5 != null) {
+                        wybraneZdjecie5.setText(zdjecieSlider5.getName());
+                    }
+                }
+        );
+
+        usunZdjecie1.setOnAction(
+                event -> {
+                    if (zdjecieSlider1 != null) {
+                        zdjecieSlider1 = null;
+                        wybraneZdjecie1.setText("brak");
+                    }
+                }
+        );
+
+        usunZdjecie2.setOnAction(
+                event -> {
+                    if (zdjecieSlider2 != null) {
+                        zdjecieSlider2 = null;
+                        wybraneZdjecie2.setText("brak");
+                    }
+                }
+        );
+
+        usunZdjecie3.setOnAction(
+                event -> {
+                    if (zdjecieSlider3 != null) {
+                        zdjecieSlider3 = null;
+                        wybraneZdjecie3.setText("brak");
+                    }
+                }
+        );
+
+        usunZdjecie4.setOnAction(
+                event -> {
+                    if (zdjecieSlider4 != null) {
+                        zdjecieSlider4 = null;
+                        wybraneZdjecie4.setText("brak");
+                    }
+                }
+        );
+
+        usunZdjecie5.setOnAction(
+                event -> {
+                    if (zdjecieSlider5 != null) {
+                        zdjecieSlider5 = null;
+                        wybraneZdjecie5.setText("brak");
+                    }
+                }
+        );
+
+        skopiujIZmienRozmiar.setOnAction(event -> zmienRozmiarZdjeciomSlider());
 
 
         // bind to take available space
@@ -731,14 +860,14 @@ public class Main extends Application {
     private void wykonajZmianeWielkosciZdjecia() {
         File filee = new File(file.getPath());
         Image image = new Image(filee.toURI().toString(), 120, 90, false, false);
-        saveToFile(image);
+        saveToFile(image, file.getName(), "png");
     }
 
-    public void saveToFile(Image image) {
-        File outputFile = new File(file.getName());
+    private void saveToFile(Image image, String saveName, String rozszerzenie) {
+        File outputFile = new File(saveName);
         BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
         try {
-            ImageIO.write(bImage, "png", outputFile);
+            ImageIO.write(bImage, rozszerzenie, outputFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -761,13 +890,176 @@ public class Main extends Application {
         Tab zdjecia = new Tab();
         zdjecia.setClosable(false);
         zdjecia.setText("Zdjecia do slajdera");
-        HBox hboxZdjecia = new HBox();
-        hboxZdjecia.getChildren().add(new Label("Tab" + "Zdjecia"));
-        hboxZdjecia.setAlignment(Pos.CENTER);
-        zdjecia.setContent(hboxZdjecia);
 
+        VBox hboxZdjecia = new VBox(5);
+        hboxZdjecia.setPadding(new Insets(5,5,5,5));
+
+        // Col 1
+        Label label1 = new Label("Wybierz 5 zdjec do slajdera (zostanie im zmieniony rozmiar na szerokość: 445 x wysokość: 250) oraz zdjęcia zostaną ponumerowane od 1 do 5. WSZYSTKIE pola muszą być uzupełnione.");
+        label1.setTextFill(Color.YELLOW);
+        label1.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        wybraneZdjecie1.setTextFill(Color.WHITE);
+        wybraneZdjecie2.setTextFill(Color.WHITE);
+        wybraneZdjecie3.setTextFill(Color.WHITE);
+        wybraneZdjecie4.setTextFill(Color.WHITE);
+        wybraneZdjecie5.setTextFill(Color.WHITE);
+        wybraneZdjecie1.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        wybraneZdjecie2.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        wybraneZdjecie3.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        wybraneZdjecie4.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        wybraneZdjecie5.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+
+        VBox col2 = new VBox(5);
+        col2.setAlignment(Pos.CENTER);
+        col2.getChildren().add(label1);
+
+        //Zdjecie 1
+        VBox col1 = new VBox(5);
+        col1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        HBox col3 = new HBox(5);
+        col3.getChildren().addAll(usunZdjecie1, wczytajZdjecie1, wybraneZdjecie1);
+        col3.setAlignment(Pos.CENTER);
+        col3.setPadding(new Insets(10,0,0,0));
+
+        col1.getChildren().addAll(col2, col3);
+
+        //Zdjecie 2
+        VBox col4 = new VBox(5);
+        col4.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        HBox col5 = new HBox(5);
+        col5.getChildren().addAll(usunZdjecie2, wczytajZdjecie2, wybraneZdjecie2);
+        col5.setAlignment(Pos.CENTER);
+        col5.setPadding(new Insets(10,0,0,0));
+
+        col4.getChildren().addAll(col5);
+
+        //Zdjecie 3
+        VBox col6 = new VBox(5);
+        col6.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        HBox col7 = new HBox(5);
+        col7.getChildren().addAll(usunZdjecie3, wczytajZdjecie3, wybraneZdjecie3);
+        col7.setAlignment(Pos.CENTER);
+        col7.setPadding(new Insets(10,0,0,0));
+
+        col6.getChildren().addAll(col7);
+
+        //Zdjecie 4
+        VBox col8 = new VBox(5);
+        col8.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        HBox col9 = new HBox(5);
+        col9.getChildren().addAll(usunZdjecie4, wczytajZdjecie4, wybraneZdjecie4);
+        col9.setAlignment(Pos.CENTER);
+        col9.setPadding(new Insets(10,0,0,0));
+
+        col8.getChildren().addAll(col9);
+
+        //Zdjecie 5
+        VBox col10 = new VBox(5);
+        col10.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        HBox col11 = new HBox(5);
+        col11.getChildren().addAll(usunZdjecie5, wczytajZdjecie5, wybraneZdjecie5);
+        col11.setAlignment(Pos.CENTER);
+        col11.setPadding(new Insets(10,0,0,0));
+
+        col10.getChildren().addAll(col11);
+
+
+        //Button run
+        VBox col12 = new VBox(5);
+        col12.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        HBox col13 = new HBox(5);
+        col13.getChildren().addAll(skopiujIZmienRozmiar);
+        col13.setAlignment(Pos.CENTER);
+        col13.setPadding(new Insets(30,0,0,0));
+
+        col12.getChildren().addAll(col13);
+
+        hboxZdjecia.getChildren().addAll(col1, col4, col6, col8, col10, col12);
+
+        zdjecia.setContent(hboxZdjecia);
         return zdjecia;
     }
 
+    private void zmienRozmiarZdjeciomSlider(){
+        File filee1 = new File(zdjecieSlider1.getPath());
+        File filee2 = new File(zdjecieSlider2.getPath());
+        File filee3 = new File(zdjecieSlider3.getPath());
+        File filee4 = new File(zdjecieSlider4.getPath());
+        File filee5 = new File(zdjecieSlider5.getPath());
 
+        Image image1 = new Image(filee1.toURI().toString(), 445, 250, false, false);
+        Image image2 = new Image(filee2.toURI().toString(), 445, 250, false, false);
+        Image image3 = new Image(filee3.toURI().toString(), 445, 250, false, false);
+        Image image4 = new Image(filee4.toURI().toString(), 445, 250, false, false);
+        Image image5 = new Image(filee5.toURI().toString(), 445, 250, false, false);
+
+        saveToFile(image1, "1.jpg", "jpg");
+        saveToFile(image2, "2.jpg", "jpg");
+        saveToFile(image3, "3.jpg", "jpg");
+        saveToFile(image4, "4.jpg", "jpg");
+        saveToFile(image5, "5.jpg", "jpg");
+    }
+
+    private Tab createZdjeciaInstrukcja(){
+        Tab zdjecia = new Tab();
+        zdjecia.setClosable(false);
+        zdjecia.setText("Instrukcja do Zdjecia");
+
+        instrukcjaZdjecia.setWrapText(true);
+        instrukcjaZdjecia.setEditable(false);
+
+        zdjecia.setContent(instrukcjaZdjecia);
+        return zdjecia;
+    }
+
+    private Tab createAktualnosciInstrukcja(){
+        Tab zdjecia = new Tab();
+        zdjecia.setClosable(false);
+        zdjecia.setText("Instrukcja do Aktualności");
+
+        instrukcjaAktualnosci.setWrapText(true);
+        instrukcjaAktualnosci.setEditable(false);
+
+        zdjecia.setContent(instrukcjaAktualnosci);
+        return zdjecia;
+    }
+
+    private String readTextFromFile(String realtivePath){
+        String filePath = new File("").getAbsolutePath();
+        filePath += (realtivePath);
+
+        File fileFromFile = new File(filePath);
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(fileFromFile);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        byte[] dataFomFile = new byte[(int) fileFromFile.length()];
+        try {
+            assert fis != null;
+                fis.read(dataFomFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fis.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String str = null;
+        try {
+            str = new String(dataFomFile, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
 }

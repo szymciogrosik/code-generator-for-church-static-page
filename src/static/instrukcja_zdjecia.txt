@@ -1,0 +1,18 @@
+Aby wymienić zdjęcia w slajdesze na stronie głównej należy:
+
+1. Wybrać wszystkie 5 zdjęć które mają być wyświetlane w slajderze.
+
+2. Kliknąć przycisk "Skopiuj zdjęcia i zmień ich rozmiar".
+
+3. Usunąć zdjęcia z folderu znajdującego się pod ścieżką: "/rawa/data1/images".
+
+4. Zdjęcia które pojawiły się w folderze w którym został uruchomiony program, wkleić do folderu znajdującego się pod ścieżką: "/rawa/data1/images".
+
+Uwagai:
+
+Zdjęcia które zostają wybrane powinny być poziome (pionowe zdjęcia słabo się skalują).
+
+Po wygenerowaniu zdjęć nie wolno zmieniać ich nazwy.
+
+
+Data ostatniej modyfikacji: 15.08.2017
