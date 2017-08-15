@@ -908,6 +908,11 @@ public class Main extends Application {
         wybraneZdjecie3.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         wybraneZdjecie4.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         wybraneZdjecie5.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        wybraneZdjecie1.setMinWidth(250);
+        wybraneZdjecie2.setMinWidth(250);
+        wybraneZdjecie3.setMinWidth(250);
+        wybraneZdjecie4.setMinWidth(250);
+        wybraneZdjecie5.setMinWidth(250);
 
         VBox col2 = new VBox(5);
         col2.setAlignment(Pos.CENTER);
@@ -916,11 +921,12 @@ public class Main extends Application {
         //Zdjecie 1
         VBox col1 = new VBox(5);
         col1.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        col1.setPadding(new Insets(10,0,0,0));
 
         HBox col3 = new HBox(5);
         col3.getChildren().addAll(usunZdjecie1, wczytajZdjecie1, wybraneZdjecie1);
         col3.setAlignment(Pos.CENTER);
-        col3.setPadding(new Insets(10,0,0,0));
+        col3.setPadding(new Insets(50,0,0,0));
 
         col1.getChildren().addAll(col2, col3);
 
@@ -976,7 +982,7 @@ public class Main extends Application {
         HBox col13 = new HBox(5);
         col13.getChildren().addAll(skopiujIZmienRozmiar);
         col13.setAlignment(Pos.CENTER);
-        col13.setPadding(new Insets(30,0,0,0));
+        col13.setPadding(new Insets(60,0,0,0));
 
         col12.getChildren().addAll(col13);
 

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Generator kodu aktualnosci.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Generator_kodu_aktualnosci_jar</output-path>
+    <root id="archive" name="Generator kodu aktualnosci.jar">
+      <element id="module-output" name="Generator kodu aktualnosci" />
+    </root>
+  </artifact>
+</component>

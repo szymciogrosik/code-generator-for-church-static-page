@@ -16,3 +16,4 @@ Po wygenerowaniu zdjęć nie wolno zmieniać ich nazwy.
 
 
 Data ostatniej modyfikacji: 15.08.2017
+Version: 1.0

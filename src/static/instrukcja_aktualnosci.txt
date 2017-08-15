@@ -12,3 +12,4 @@ UWAGA - nie wolno zmieniać nazwy zdjęcia po wygenerowaniu kodu !!!
 
 
 Data ostatniej modyfikacji: 15.08.2017
+Version: 1.0
