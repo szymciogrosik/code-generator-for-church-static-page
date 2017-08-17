@@ -655,6 +655,7 @@ public class Main extends Application {
         hboxAktualnosci.getChildren().add(col21);
 
 
+
         // Col 3
         VBox col31 = new VBox(5);
         col31.getChildren().add(imageViewAktualnosci);
