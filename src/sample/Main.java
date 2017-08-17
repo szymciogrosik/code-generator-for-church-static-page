@@ -2,41 +2,33 @@ package sample;
 
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import sun.font.TextLabel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
-import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 public class Main extends Application {
 
@@ -117,12 +109,8 @@ public class Main extends Application {
     private TextArea instrukcjaZdjecia = new TextArea();
     private TextArea instrukcjaAktualnosci = new TextArea();
 
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Generator kodu dla parafialnej strony");
         Group root = new Group();
         Scene scene = new Scene(root, 1400, 700, Color.rgb(43,43,43));
@@ -144,8 +132,8 @@ public class Main extends Application {
         tabPane.getTabs().add(zdjecia);
         tabPane.getTabs().add(zdjeciaInstukcja);
 
-        instrukcjaAktualnosci.setText(readTextFromFile("\\src\\static\\instrukcja_aktualnosci.txt"));
-        instrukcjaZdjecia.setText(readTextFromFile("\\src\\static\\instrukcja_zdjecia.txt"));
+        instrukcjaAktualnosci.setText(readTextFromFile("instrukcja_aktualnosci.txt"));
+        instrukcjaZdjecia.setText(readTextFromFile("instrukcja_zdjecia.txt"));
 
         wybierzZdjecie.setOnAction(
                 event -> {
@@ -340,7 +328,7 @@ public class Main extends Application {
         aktualnosci.setClosable(false);
         aktualnosci.setText("Aktualności");
 
-        Image aktualnosciImage = new Image(Main.class.getResourceAsStream("../static/aktualnosc.png"));
+        Image aktualnosciImage = new Image(getClass().getResourceAsStream("aktualnosc.png"));
 
         ImageView imageViewAktualnosci = new ImageView(aktualnosciImage);
 
@@ -717,11 +705,11 @@ public class Main extends Application {
         col38.getChildren().add(kopiujLink);
 
 
-        Image icon1Image = new Image(Main.class.getResourceAsStream("../static/download.png"));
-        Image icon2Image = new Image(Main.class.getResourceAsStream("../static/glob.png"));
-        Image icon3Image = new Image(Main.class.getResourceAsStream("../static/camera.png"));
-        Image icon4Image = new Image(Main.class.getResourceAsStream("../static/film.png"));
-        Image icon5Image = new Image(Main.class.getResourceAsStream("../static/headphone.png"));
+        Image icon1Image = new Image(Main.class.getResourceAsStream("download.png"));
+        Image icon2Image = new Image(Main.class.getResourceAsStream("glob.png"));
+        Image icon3Image = new Image(Main.class.getResourceAsStream("camera.png"));
+        Image icon4Image = new Image(Main.class.getResourceAsStream("film.png"));
+        Image icon5Image = new Image(Main.class.getResourceAsStream("headphone.png"));
 
         ImageView iconImage1 = new ImageView(icon1Image);
         ImageView iconImage2 = new ImageView(icon2Image);
@@ -1036,36 +1024,20 @@ public class Main extends Application {
         return zdjecia;
     }
 
-    private String readTextFromFile(String realtivePath){
-        String filePath = new File("").getAbsolutePath();
-        filePath += (realtivePath);
+    private String readTextFromFile(String realtivePath) throws IOException {
+        InputStream in = getClass().getResourceAsStream(realtivePath);
+        BufferedReader input = new BufferedReader(new InputStreamReader(in, "UTF8"));
 
-        File fileFromFile = new File(filePath);
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(fileFromFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        byte[] dataFomFile = new byte[(int) fileFromFile.length()];
-        try {
-            assert fis != null;
-                fis.read(dataFomFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StringBuilder returnedString = new StringBuilder();
+        String aux;
 
-        String str = null;
-        try {
-            str = new String(dataFomFile, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return str;
+        while ((aux = input.readLine()) != null)
+            returnedString.append(aux).append("\n");
+
+        return returnedString.toString();
+    }
+
+    public static void main(String[] args) {
+        Application.launch(args);
     }
 }
