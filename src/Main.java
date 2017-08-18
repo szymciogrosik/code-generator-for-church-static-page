@@ -845,7 +845,7 @@ public class Main extends Application {
     private void wykonajZmianeWielkosciZdjecia() {
         File filee = new File(file.getPath());
         Image image = new Image(filee.toURI().toString(), 120, 90, false, false);
-        saveToFile(image, file.getName(), "png");
+        saveToFile(image, numerJS.getText()+".png", "png");
     }
 
     private void saveToFile(Image image, String saveName, String rozszerzenie) {

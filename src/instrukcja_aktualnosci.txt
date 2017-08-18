@@ -11,5 +11,5 @@ Następnie należy:
 UWAGA - nie wolno zmieniać nazwy zdjęcia po wygenerowaniu kodu !!!
 
 
-Data ostatniej modyfikacji: 15.08.2017
-Version: 1.0
+Data ostatniej modyfikacji: 18.08.2017
+Version: 1.1
