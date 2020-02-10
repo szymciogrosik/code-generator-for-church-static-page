@@ -800,7 +800,7 @@ public class Main extends Application {
         if(file != null) {
             myString=myString+"    <div class=\"col-sm-12 margin-top2 padding-left0\">\n";
             myString=myString+"        <div class=\"col-sm-2\">\n";
-            myString=myString+"            <img align=\"left\" src=\"static/images/Aktualnosci/"+file.getName()+"\" class=\"img-border margin-bottom5\" height=\"90\" width=\"120\">\n";
+            myString=myString+"            <img align=\"left\" src=\"static/images/Aktualnosci/"+file.getName().split("\\.")[0]+".png"+"\" class=\"img-border margin-bottom5\" height=\"90\" width=\"120\">\n";
             myString=myString+"        </div>\n";
             myString=myString+"        <div class=\"col-sm-10 padding-tekstNaglowek\">\n";
             myString=myString+"            <h4 class=\"margin-top0 margin-bottom5\">"+temat.getText()+"</h4>\n";
